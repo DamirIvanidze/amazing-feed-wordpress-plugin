@@ -1,0 +1,17 @@
+{
+    "name": "damir/amazing-feed",
+    "type": "project",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "damir.ivanidze",
+            "email": "damir.ivanidze@yandex.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {"Inc\\": "./inc"}
+    }
+}

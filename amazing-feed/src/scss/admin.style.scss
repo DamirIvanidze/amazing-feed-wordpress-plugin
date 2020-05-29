@@ -1,0 +1,310 @@
+$main_color: #40acad;
+
+body{
+	*{ outline: none !important; }
+}
+
+
+.container {
+	width: 100%;
+}	
+
+pre {
+	white-space: pre-wrap;
+}
+
+
+.text-right {
+	text-align: right;
+}
+
+.w-100 {
+	width: 100%;
+}
+
+
+$margin: 5;
+
+@for $i from 1 through $margin {
+	.mt-#{$i} { margin-top: #{$i}em; }
+	.ml-#{$i} { margin-left: #{$i}em; }
+	.mr-#{$i} { margin-right: #{$i}em; }
+	.mb-#{$i} { margin-bottom: #{$i}em; }
+}
+
+.alert {
+	position: relative;
+	padding: .75rem 1.25rem;
+	margin-bottom: 1rem;
+	border: 1px solid transparent;
+	border-radius: .25rem;
+
+	&-danger {
+		color: #721c24;
+		background-color: #f8d7da;
+		border-color: #f5c6cb;
+	}
+
+	&-info {
+		color: #0c5460;
+		background-color: #d1ecf1;
+		border-color: #bee5eb;
+	}
+}
+
+.af-header {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 20px;
+	background: #32373c;
+
+	h2 {
+		color: #ccc;
+	}
+}
+
+
+.form {
+
+	select {
+		width: 100%;
+		max-width: 220px;
+	}
+
+	&__btn {
+		text-align: center;
+		text-decoration: none;
+		display: block;
+		min-width: 220px;
+		max-width: 230px;
+		border-radius: 4px;
+		background: $main_color;
+		color: #fff;
+		font-weight: bold;
+		text-transform: uppercase;
+		border: 0;
+		padding: 12px 20px;
+
+		&:disabled,
+		&:hover,
+		&:active,
+		&:focus {
+			color: #fff;
+			cursor: pointer;
+			background: darken($main_color, 10%);
+		}
+
+		@media (max-width: 1040px) {
+			margin: 0 auto;
+		}
+
+
+		&.js-cron,
+		&.js-remove-all-posts {
+			margin: 0 auto;
+		}
+	}
+
+
+	input.is-invalid {
+		border-color: #dc3545;
+	}
+
+	input.is-valid {
+		border-color: #28a745;
+	}
+}
+
+
+		
+
+
+.allow_url_fopen_disabled {
+	margin: 30px auto;
+	text-align: center;
+	font-size: 30px;
+
+	small {
+		margin-top: 15px;
+		display: block;
+		font-size: 16px;
+	}
+}
+
+
+
+.xml{
+
+	padding-top: 15px;
+	padding-bottom: 15px;
+
+	&__tag {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+
+	&__tag:hover {
+		cursor: grab;
+	}
+	
+	&__padding {
+		padding-left: 15px;
+	}
+
+	&__tagname {
+		font-weight: bold;
+		color: $main_color;
+	}
+
+	&__attr {
+		font-weight: bold;
+	}
+}
+
+
+.js-add-new-field {
+	display: inline-block;
+	position: relative;
+	color: $main_color;
+	text-decoration: none;
+	padding-left: 20px;
+	box-shadow: none !important;
+
+	&:before {
+		content: url( '../img/plus.svg' );
+		width: 15px;
+		height: 20px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		margin: auto;
+	}
+
+	&:hover,
+	&:active,
+	&:focus {
+		color: $main_color;
+		text-decoration: underline;
+	}
+}
+
+
+.js-remove-field {
+	box-shadow: none !important;
+	display: block;
+
+	svg {
+		width: 25px;
+		position: relative;
+		top: 2px;
+		fill: #7e8993;
+		transition: fill .7s;
+
+		@media (max-width: 782px) {
+			top: 6px;
+		}
+	}
+
+	&:hover svg {
+		fill: $main_color;
+	}
+}
+
+
+
+.swiper {
+	
+	&-container {
+		border: 1px solid #7e8993;
+		max-height: 400px;
+		overflow-y: scroll !important;
+	}
+
+	&-prev,
+	&-next {
+		cursor: pointer;
+
+		svg {
+			width: 20px;
+		}
+	}
+
+
+	&-number-slides {
+		text-align: center;
+
+		input {
+			text-align: center;
+			width: 40px;
+		}
+	}
+}
+
+
+
+.js-remove-all-posts-progress-bar {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 15px;
+	background: #fff;
+	display: none;
+	margin-top: 15px;
+
+	span {
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 0;
+		height: 100%;
+		background: $main_color;
+		transition: width .5s;
+	}
+}
+
+
+#cron-table {
+	margin-top: 40px;
+	width: 100%;
+	text-align: center;
+
+	thead {
+		background: #32373c;
+		color: #fff;
+	}
+
+	th, td {
+		padding: 15px;
+		width: calc( 100% / 4 );
+	}
+}
+
+.js-cron-status {
+	span {
+		position: relative;
+		display: inline-block;
+		padding-left: 20px;
+
+		&:before {
+			content: '';
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			margin: auto;
+		}
+
+		&.is-active:before {
+			background: $main_color;
+		}
+
+		&.is-not-active:before {
+			background: #e31e25;
+		}
+	}
+}
