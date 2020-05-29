@@ -27,7 +27,7 @@ class AjaxPlugin {
 			'events' => array(
 				'wpkama_cron_func' => array(
 					'callback'      => [ $this->cron, 'amazingFeedCron' ],
-					'interval_name' => '10_min',
+					'interval_name' => '2_hours',
 					'interval_desc' => 'Каждые 2 часа',
 				),
 			),
