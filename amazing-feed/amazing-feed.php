@@ -50,7 +50,7 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
  * The code that runs during plugin activation
  */
 function activate_amazing_feed() {
-    Inc\Base\Activate::activate();
+    AF\Base\Activate::activate();
 }
 register_activation_hook( __FILE__, 'activate_amazing_feed' );
 
@@ -59,7 +59,7 @@ register_activation_hook( __FILE__, 'activate_amazing_feed' );
  * The code that runs during plugin deactivation
  */
 function deactivate_amazing_feed() {
-    Inc\Base\Deactivate::deactivate();
+    AF\Base\Deactivate::deactivate();
 }
 register_deactivation_hook( __FILE__, 'deactivate_amazing_feed' );
 
@@ -67,6 +67,6 @@ register_deactivation_hook( __FILE__, 'deactivate_amazing_feed' );
 /**
  * Initialize all the core classes of the plugin
  */
-if ( class_exists( 'Inc\\InitPlugin' ) ) {
-    Inc\InitPlugin::register_services();
+if ( class_exists( 'AF\\InitPlugin' ) ) {
+    AF\InitPlugin::register_services();
 }

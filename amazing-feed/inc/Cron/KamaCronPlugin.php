@@ -3,7 +3,7 @@
  * @package  DeepLevelPlugin
  */
 
-namespace Inc\Cron;
+namespace AF\Cron;
 
 /**
  * Convenient way to add cron tasks in WordPress.

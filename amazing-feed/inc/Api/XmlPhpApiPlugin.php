@@ -3,9 +3,9 @@
  * @package  DeepLevelPlugin
  */
 
-namespace Inc\Api;
+namespace AF\Api;
 
-use \Inc\Api\SettingsApiPlugin;
+use \AF\Api\SettingsApiPlugin;
 
 class XmlPhpApiPlugin
 {

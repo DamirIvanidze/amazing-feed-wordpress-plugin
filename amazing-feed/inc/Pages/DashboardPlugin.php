@@ -3,10 +3,10 @@
  * @package  DeepLevelPlugin
  */
 
-namespace Inc\Pages;
+namespace AF\Pages;
 
-use \Inc\Base\BaseControllerPlugin; // store variables
-use \Inc\Api\SettingsApiPlugin; // add some admin pages and subpages in wp-admin menu
+use \AF\Base\BaseControllerPlugin; // store variables
+use \AF\Api\SettingsApiPlugin; // add some admin pages and subpages in wp-admin menu
 
 class DashboardPlugin extends BaseControllerPlugin
 {

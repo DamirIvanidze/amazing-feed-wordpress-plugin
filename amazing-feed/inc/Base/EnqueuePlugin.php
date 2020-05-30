@@ -3,7 +3,7 @@
  * @package  DeepLevelPlugin
  */
 
-namespace Inc\Base;
+namespace AF\Base;
 
 class EnqueuePlugin extends BaseControllerPlugin {
 

@@ -3,9 +3,9 @@
  * @package  DeepLevelPlugin
  */
 
-namespace Inc\Cron;
+namespace AF\Cron;
 
-use \Inc\Api\XmlPhpApiPlugin;
+use \AF\Api\XmlPhpApiPlugin;
 
 class CronPlugin
 {
@@ -132,7 +132,7 @@ class CronPlugin
 		 *
 		 */
 
-		// include_once( ABSPATH . 'wp-admin/includes/image.php' );
+		// AFlude_once( ABSPATH . 'wp-admin/AFludes/image.php' );
 		// $imageurl = '<IMAGE URL>';
 		// $imagetype = end(explode('/', getimagesize($imageurl)['mime']));
 		// $uniq_name = date('dmY').''.(int) microtime(true);
@@ -258,7 +258,7 @@ class CronPlugin
 		/**
 		 * Заливаем новые записи в БД
 		 */
-		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+		require_once( ABSPATH . 'wp-admin/AFludes/image.php' );
 
 		$meta_array = array();
 

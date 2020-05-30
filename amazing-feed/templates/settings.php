@@ -6,7 +6,7 @@
 	<?
 		$output = get_option( 'amazing_feed_settings' );
 
-		// Inc\Api\SettingsApiPlugin::vardump( $output );
+		// AF\Api\SettingsApiPlugin::vardump( $output );
 	?>
 
 	<form action="" method="post" class="form adminform_ajax">
@@ -126,7 +126,7 @@
 
 				<div class="col-lg-5 col-xs-12">
 					<?
-						$xml_php_api_pligun = new Inc\Api\XmlPhpApiPlugin;
+						$xml_php_api_pligun = new AF\Api\XmlPhpApiPlugin;
 						if( $xml_php_api_pligun->checkXml() && $xml_php_api_pligun->checkOffers() ) {
 					?>
 						<div class="row">

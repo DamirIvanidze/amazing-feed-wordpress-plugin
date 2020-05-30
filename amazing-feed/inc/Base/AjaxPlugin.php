@@ -3,10 +3,10 @@
  * @package  AmazingFeed
  */
 
-namespace Inc\Base;
+namespace AF\Base;
 
-use \Inc\Cron\KamaCronPlugin;
-use \Inc\Cron\CronPlugin;
+use \AF\Cron\KamaCronPlugin;
+use \AF\Cron\CronPlugin;
 
 class AjaxPlugin {
 

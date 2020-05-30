@@ -3,7 +3,7 @@
  * @package  AmazingFeed
  */
 
-namespace Inc;
+namespace AF;
 
 final class InitPlugin {
 

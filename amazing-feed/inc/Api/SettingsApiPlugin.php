@@ -3,7 +3,7 @@
  * @package  DeepLevelPlugin
  */
 
-namespace Inc\Api;
+namespace AF\Api;
 
 class SettingsApiPlugin
 {

@@ -3,7 +3,7 @@
  * @package  AmazingFeed
  */
 
-namespace Inc\Base;
+namespace AF\Base;
 
 class BaseControllerPlugin {
 

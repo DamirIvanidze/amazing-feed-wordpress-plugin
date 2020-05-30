@@ -6,7 +6,7 @@
 	<?
 		$output = get_option( 'amazing_feed_settings' );
 
-		// Inc\Api\SettingsApiPlugin::vardump( $output );
+		// AF\Api\SettingsApiPlugin::vardump( $output );
 
 		$count_posts = wp_count_posts();
 		$published_posts = $count_posts->publish;
@@ -14,7 +14,7 @@
 		if( isset( $output[ 'parse_link' ] ) && ! empty( $output[ 'parse_link' ] ) && isset( $output[ 'complex_name' ] ) && ! empty( $output[ 'complex_name' ] ) ) {
 			if( isset( $output[ 'cron' ][ 'offers' ] ) && $output[ 'cron' ][ 'offers' ] == $published_posts ) {}
 			else {
-				$settings = new Inc\Api\XmlPhpApiPlugin;
+				$settings = new AF\Api\XmlPhpApiPlugin;
 				$cron_offers = $settings->getCronOffersCount();
 
 				$output['cron']['offers'] = $cron_offers;
