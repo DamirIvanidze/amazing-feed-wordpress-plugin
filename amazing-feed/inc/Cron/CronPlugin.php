@@ -132,7 +132,7 @@ class CronPlugin
 		 *
 		 */
 
-		// AFlude_once( ABSPATH . 'wp-admin/AFludes/image.php' );
+		// require_once( ABSPATH . 'wp-admin/includes/image.php' );
 		// $imageurl = '<IMAGE URL>';
 		// $imagetype = end(explode('/', getimagesize($imageurl)['mime']));
 		// $uniq_name = date('dmY').''.(int) microtime(true);
@@ -258,7 +258,7 @@ class CronPlugin
 		/**
 		 * Заливаем новые записи в БД
 		 */
-		require_once( ABSPATH . 'wp-admin/AFludes/image.php' );
+		require_once( ABSPATH . 'wp-admin/includes/image.php' );
 
 		$meta_array = array();
 
