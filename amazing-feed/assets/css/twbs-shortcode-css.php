@@ -8,6 +8,15 @@
 		margin-bottom: 60px;
 	}
 
+	@media only screen and (max-width: 992px) {
+		.mixer form .col {
+			max-width: 100%;
+			flex-basis: 100%;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+	}
+
 	@media only screen and (max-width: 576px) {
 		.mixer form {
 			text-align: center;
@@ -213,6 +222,7 @@
 		background: #fff;
 		border: 1px solid rgb(209, 209, 209);
 		margin-right: 1px;
+		margin-bottom: 5px;
 		cursor: pointer;
 		line-height: 2.7rem;
 		font-weight: bold;
