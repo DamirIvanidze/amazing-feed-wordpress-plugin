@@ -8,7 +8,7 @@
 * Plugin Name: Amazing Feed
 * Plugin URI:
 * Description: Ежедневно обновляем фид новостроек.
-* Version: 3.0
+* Version: 3.1
 * Author: damir.ivanidze
 * Author URI: https://bitbybit.su
 * License: GPLv2 or later

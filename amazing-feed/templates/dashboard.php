@@ -22,7 +22,6 @@
 			}
 		}
 
-
 		if( isset( $output['cron']['offers'] ) && $output['cron']['offers'] > 200 && isset( $output['cron']['status'] ) && $output['cron']['status'] == 'activate' ) echo '<div class="alert alert-info"><strong>Обратите внимание!</strong> Записей больше 200, поэтому за каждую итерацию будет загружаться не больше 200 записей во избежание большой нагрузки на сервер.</div>';
 	?>
 

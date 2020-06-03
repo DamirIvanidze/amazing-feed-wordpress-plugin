@@ -114,7 +114,7 @@
 
 						<? } ?>
 
-						<a href="#" class="js-add-new-field mt-3 mb-3">Добавить поле?</a>
+						<a href="#" class="js-add-new-field mt-3 mb-3">Добавить поле</a>
 
 						<input type="submit" value="Сохранить настройки" class="form__btn mb-3">
 

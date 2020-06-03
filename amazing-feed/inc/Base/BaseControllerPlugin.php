@@ -31,6 +31,15 @@ class BaseControllerPlugin {
 		return require_once( $this->plugin_path . 'templates/settings.php' );
 	}
 
+	public function adminShortcodesTemplate()
+	{
+		return require_once( $this->plugin_path . 'templates/shortcodes.php' );
+	}
+	public function adminVariablesTemplate()
+	{
+		return require_once( $this->plugin_path . 'templates/variables.php' );
+	}
+
 
 	public function dco_remove_default_image_sizes( $sizes ) {
 		return array_diff( $sizes, array(

@@ -4,6 +4,10 @@ body{
 	*{ outline: none !important; }
 }
 
+.regular-text {
+	max-width: 25em;
+	width: 100%;
+}
 
 .container {
 	width: 100%;
@@ -76,7 +80,7 @@ $margin: 5;
 		text-decoration: none;
 		display: block;
 		min-width: 220px;
-		max-width: 230px;
+		max-width: 250px;
 		border-radius: 4px;
 		background: $main_color;
 		color: #fff;
@@ -305,6 +309,37 @@ $margin: 5;
 
 		&.is-not-active:before {
 			background: #e31e25;
+		}
+	}
+}
+
+
+ul.js-sortable {
+	li {
+		position: relative;
+		margin-bottom: 15px;
+		padding: 6px 12px;
+		border: 2px solid #32373c;
+		cursor: move;
+		font-size: 20px;
+
+		&:after {
+			content: '';
+			width: 20px;
+			height: 31px;
+			background: url('../img/grip-vertical.svg');
+			background-size: cover;
+			background-repeat: no-repeat;
+			position: absolute;
+			top: 0;
+			right: 5px;
+			bottom: 0;
+			margin: auto;
+		}
+
+		&:hover {
+			background: #32373c;
+			color: #fff;
 		}
 	}
 }

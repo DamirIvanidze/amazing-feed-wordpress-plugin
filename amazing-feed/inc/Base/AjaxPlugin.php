@@ -43,13 +43,15 @@ class AjaxPlugin {
 
 	public function register()
 	{
-		add_action( 'wp_ajax_remove_all_posts', array( $this, 'removeAllPosts') );
+		add_action( 'wp_ajax_remove_all_posts', [ $this, 'removeAllPosts' ] );
 
-		add_action( 'wp_ajax_check_progress', array( $this, 'checkProgress') );
+		add_action( 'wp_ajax_check_progress', [ $this, 'checkProgress' ] );
 
-		add_action( 'wp_ajax_activate_deactivate_cron', array( $this, 'activateDeactivateCron') );
+		add_action( 'wp_ajax_activate_deactivate_cron', [ $this, 'activateDeactivateCron' ] );
 
-		add_action( 'wp_ajax_edit_settings', array( $this, 'editSettings') );
+		add_action( 'wp_ajax_edit_settings', [ $this, 'editSettings' ] );
+
+		add_action( 'wp_ajax_generate_shortcode', [ $this, 'generateShortcodeTwbs' ] );
 	}
 
 	public function checkNonce( $nonce_from_func )
@@ -124,23 +126,19 @@ class AjaxPlugin {
 
 		$redirect_to = isset( $_POST['redirect_to'] ) ? $_POST['redirect_to'] : '';
 
-		$edit = array();
-
-		$parse_link = isset( $_POST['parse_link'] ) ? $_POST['parse_link'] : '';
-		$parse_link = esc_url_raw( $parse_link );
-
-		$complex_name = isset( $_POST['complex_name'] ) ? $_POST['complex_name'] : '';
-		$complex_name = esc_attr( sanitize_text_field( $complex_name ) );
-
-		$edit[ 'parse_link' ] = $parse_link;
-		$edit[ 'complex_name' ] = $complex_name;
-
+		$edit[ 'parse_link' ] = esc_url_raw( isset( $_POST['parse_link'] ) ? $_POST['parse_link'] : '' );
+		$edit[ 'complex_name' ] = esc_attr( sanitize_text_field( isset( $_POST['complex_name'] ) ? $_POST['complex_name'] : '' ) );
 
 		$custom_name = isset( $_POST['custom_name'] ) ? $_POST['custom_name'] : '';
 		$custom_value = isset( $_POST['custom_value'] ) ? $_POST['custom_value'] : '';
 		$result = array_combine( $custom_name, $custom_value );
-
 		$edit[ 'settings_for_import_array' ] = $result;
+
+
+		$edit[ 'variables' ][ 'phone' ] = esc_attr( sanitize_text_field( isset( $_POST['phone'] ) ? $_POST['phone'] : '' ) );
+		$edit[ 'variables' ][ 'main_price' ] = esc_attr( sanitize_text_field( isset( $_POST['main_price'] ) ? $_POST['main_price'] : '' ) );
+		$edit[ 'variables' ][ 'finish_price' ] = esc_attr( sanitize_text_field( isset( $_POST['finish_price'] ) ? $_POST['finish_price'] : '' ) );
+		$edit[ 'variables' ][ 'mortgage' ] = esc_attr( sanitize_text_field( isset( $_POST['mortgage'] ) ? $_POST['mortgage'] : '' ) );
 
 
 		foreach ( $edit as $key => $val ) {
@@ -148,7 +146,6 @@ class AjaxPlugin {
 				unset( $edit[ $key ] );
 			}
 		}
-
 
 		foreach ( $edit as $key => $val ) {
 			$this->output[ $key ] = $val;
@@ -160,6 +157,36 @@ class AjaxPlugin {
 		wp_send_json_success( array( 'message' => 'Saved.', 'redirect' => $redirect_to ) );
 	}
 
+
+	public function generateShortcodeTwbs()
+	{
+		$this->checkNonce( 'generate_shortcode_nonce' );
+
+		$redirect_to = isset( $_POST['redirect_to'] ) ? $_POST['redirect_to'] : '';
+
+		$filters = isset( $_POST['filters'] ) ? $_POST['filters'] : '';
+
+		$filters_name = isset( $_POST['filters_name'] ) ? $_POST['filters_name'] : '';
+
+		$main_color_scss = isset( $_POST['main_color_scss'] ) ? $_POST['main_color_scss'] : '';
+		$main_color_hex = isset( $_POST['main_color_hex'] ) ? $_POST['main_color_hex'] : '';
+		$active_color_hex = isset( $_POST['active_color_hex'] ) ? $_POST['active_color_hex'] : '';
+
+		$ignore_url = isset( $_POST['ignore_url'] ) ? $_POST['ignore_url'] : '';
+		$cf7 = isset( $_POST['cf7'] ) ? $_POST['cf7'] : '';
+
+		$this->output[ 'shortcode' ][ 'filters' ] = $filters;
+		$this->output[ 'shortcode' ][ 'filters_name' ] = $filters_name;
+		$this->output[ 'shortcode' ][ 'main_color_scss' ] = $main_color_scss;
+		$this->output[ 'shortcode' ][ 'main_color_hex' ] = $main_color_hex;
+		$this->output[ 'shortcode' ][ 'active_color_hex' ] = $active_color_hex;
+		$this->output[ 'shortcode' ][ 'ignore_url' ] = $ignore_url;
+		$this->output[ 'shortcode' ][ 'cf7' ] = $cf7;
+
+		update_option( 'amazing_feed_settings', $this->output );
+
+		wp_send_json_success( array( 'message' => 'Saved.', 'redirect' => $redirect_to ) );
+	}
 
 
 	public function checkProgress()

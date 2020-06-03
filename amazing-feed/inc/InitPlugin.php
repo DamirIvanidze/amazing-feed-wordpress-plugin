@@ -18,6 +18,7 @@ final class InitPlugin {
 			Pages\DashboardPlugin::class,
 			Base\EnqueuePlugin::class,
 			Base\AjaxPlugin::class,
+			Base\ShortcodesPlugin::class,
 		];
 	}
 

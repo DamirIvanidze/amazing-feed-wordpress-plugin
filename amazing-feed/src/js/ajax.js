@@ -2,16 +2,48 @@ var ajaxgo = false;
 
 jQuery(document).ready(function($) {
 
-	var adminform_ajax = jQuery('.adminform_ajax');
+	var adminform_ajax = jQuery( '.adminform_ajax' );
 
 	/**
 	 * Ajax with button
 	 */
 
-	function req_go(data, form, options){
-		if (ajaxgo){
+	function req_go( data, form, options ) {
+		if ( ajaxgo ) {
 			form.find('.response').html('<p class="error">Необходимо дождаться ответа от предыдущего запроса.</p>');
 			return false;
+		}
+
+		if( form.find( 'input[type=submit]' ).hasClass('js-generate-shortcode') ) {
+			var filters = [];
+			var filters_name = [];
+
+			$( '.js-sortable-filtres li' ).each( function( index, el ) {
+				filters.push( $(this).data( 'name' ) );
+			});
+
+			filters = filters.join(';');
+
+			data.push({
+				name: "filters",
+				value: filters,
+				type: "hidden",
+				required: false,
+			});
+
+
+			$( '.js-sortable-filtres-name li' ).each( function( index, el ) {
+				filters_name.push( $(this).data( 'name' ) );
+			});
+
+			filters_name = filters_name.join(';');
+
+			data.push({
+				name: "filters_name",
+				value: filters_name,
+				type: "hidden",
+				required: false,
+			});
 		}
 
 		form.find( 'input[type=submit]' ).prop( 'disabled', true ).val( 'Подождите..' );
@@ -27,7 +59,7 @@ jQuery(document).ready(function($) {
 		}
 	}
 
-	function req_come(data, statusText, xhr, form){
+	function req_come( data, statusText, xhr, form ) {
 		form.find('input').removeClass('is-invalid');
 
 		if( form.find( 'input[type=submit]' ).hasClass('js-remove-all-posts') ) {
