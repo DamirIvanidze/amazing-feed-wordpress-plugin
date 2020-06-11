@@ -152,11 +152,16 @@
 
 					<div class="col-lg-6">
 						<? if( count( $settings_for_import_array ) == count( $filters ) && count( $settings_for_import_array ) == count( $filters_name ) && $main_color_scss && $main_color_hex && $active_color_hex ) { ?>
-							<h3>Ваш шорткод сгенерирован</h3>
-							<button class="js-copy-to-buffer" data-target="#twbs-flats-template">Скопировать в буфер</button>
-							<p>
-								<code id="twbs-flats-template">[twbs-flats-template filters="<?= implode( ';', $filters ); ?>" filters_name="<?= implode( ';', $filters_name ); ?>" main_color_scss="<?= $main_color_scss; ?>" main_color_hex="<?= $main_color_hex; ?>" active_color_hex="<?= $active_color_hex; ?>" ignore_url="<?= $ignore_url; ?>" cf7="<?= $cf7; ?>"]</code>
-							</p>
+							<div class="mb-5">
+								<h3>Ваш шорткод сгенерирован</h3>
+								<button class="js-copy-to-buffer" data-target="#twbs-flats-template">Скопировать в буфер</button>
+								<p><code id="twbs-flats-template">[twbs-flats-template filters="<?= implode( ';', $filters ); ?>" filters_name="<?= implode( ';', $filters_name ); ?>" main_color_scss="<?= $main_color_scss; ?>" main_color_hex="<?= $main_color_hex; ?>" active_color_hex="<?= $active_color_hex; ?>" ignore_url="<?= $ignore_url; ?>" cf7="<?= $cf7; ?>"]</code></p>
+							</div>
+
+							<div>
+								<button class="js-copy-to-buffer" data-target="#uk-flats-template">Скопировать в буфер</button>
+								<p><code id="uk-flats-template">[uk-flats-template filters="<?= implode( ';', $filters ); ?>" filters_name="<?= implode( ';', $filters_name ); ?>" main_color_scss="<?= $main_color_scss; ?>" main_color_hex="<?= $main_color_hex; ?>" active_color_hex="<?= $active_color_hex; ?>" ignore_url="<?= $ignore_url; ?>" cf7="<?= $cf7; ?>"]</code></p>
+							</div>
 						<?}?>
 					</div>
 				</div>

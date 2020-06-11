@@ -86,6 +86,7 @@ class AjaxPlugin {
 		}
 
 		$this->output[ 'check_progress' ] = 0;
+		unset( $this->output[ 'shortcode' ] );
 		update_option( 'amazing_feed_settings', $this->output );
 
 		wp_send_json_success( array( 'message' => 'Saved.', 'redirect' => $redirect_to ) );
