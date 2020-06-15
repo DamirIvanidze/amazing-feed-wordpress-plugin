@@ -339,6 +339,20 @@
 		font-weight: bold;
 	}
 
+	.modal-shortcode-twbs__form .ajax-loader {
+		position: absolute;
+	}
+
+	.modal-shortcode-twbs__form .wpcf7-form .wpcf7-response-output.wpcf7-mail-sent-ok,
+	.modal-shortcode-twbs__form .wpcf7-form .wpcf7-response-output.wpcf7-validation-errors {
+		display: none !important;
+	}
+
+	.modal-shortcode-twbs__form .wpcf7-not-valid-tip {
+		font-size: 10px;
+		color: <?= $main_color_hex; ?>;
+	}
+
 	.js-mix-tooltip {
 		position:absolute;
 		z-index: 999;
