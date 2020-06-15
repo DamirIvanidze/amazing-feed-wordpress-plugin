@@ -5,13 +5,18 @@
 
 namespace AF\Base;
 
+use \AF\Base\BuildingPlugin;
+
 class ShortcodesPlugin extends BaseControllerPlugin {
+
+	public $building;
 
 	public function register()
 	{
 		add_shortcode( 'twbs-flats-template', [ $this, 'twbsFlatsTemplate' ] );
 		add_shortcode( 'uk-flats-template', [ $this, 'ukFlatsTemplate' ] );
 		add_shortcode( 'amazing-feed-variable', [ $this, 'amazingFeedVariable' ] );
+		add_shortcode( 'amazing-feed-building', [ $this, 'amazingFeedBuilding' ] );
 	}
 
 	public function twbsFlatsTemplate( $atts )
@@ -44,9 +49,9 @@ class ShortcodesPlugin extends BaseControllerPlugin {
 		wp_enqueue_style( 'ion-range-slider', $this->plugin_url . 'assets/css/modules/ion.rangeSlider.min.css', array(), null, 'all' );
 		require_once $this->plugin_path . 'assets/css/twbs-shortcode-css.php';
 
-		// wp_enqueue_script( 'mixitup', $this->plugin_url . '/assets/js/modules/mixitup/mixitup.min.js', array( 'jquery' ), null, true );
-		// wp_enqueue_script( 'mixitup-multifilter', $this->plugin_url . '/assets/js/modules/mixitup/mixitup-multifilter.min.js', array( 'jquery' ), null, true );
-		// wp_enqueue_script( 'mixitup-pagination', $this->plugin_url . '/assets/js/modules/mixitup/mixitup-pagination.min.js', array( 'jquery' ), null, true );
+		wp_enqueue_script( 'mixitup', $this->plugin_url . '/assets/js/modules/mixitup/mixitup.min.js', array( 'jquery' ), null, true );
+		wp_enqueue_script( 'mixitup-multifilter', $this->plugin_url . '/assets/js/modules/mixitup/mixitup-multifilter.min.js', array( 'jquery' ), null, true );
+		wp_enqueue_script( 'mixitup-pagination', $this->plugin_url . '/assets/js/modules/mixitup/mixitup-pagination.min.js', array( 'jquery' ), null, true );
 		wp_enqueue_script( 'ion-range-slider', $this->plugin_url . 'assets/js/modules/ion.rangeSlider.min.js', array( 'jquery' ), null, true );
 		wp_enqueue_script( 'twbs-shortcode', $this->plugin_url . 'assets/js/twbs-shortcode.min.js', array( 'jquery' ), null, true );
 
@@ -119,5 +124,17 @@ class ShortcodesPlugin extends BaseControllerPlugin {
 			return '<a href="tel:' . $phone_href . '" class="phone">' . $phone . '</a>';
 		}
 		else return $output[ 'variables' ][ $attributes[ 'variable' ] ];
+	}
+
+
+	public function amazingFeedBuilding()
+	{
+		$output = get_option( 'amazing_feed_settings' );
+		$this->building = new BuildingPlugin;
+		$images_from_url = $this->building->getImagesFromUrl( $output[ 'building' ] );
+
+		$images_from_url = json_encode( $images_from_url );
+
+		return $images_from_url;
 	}
 }

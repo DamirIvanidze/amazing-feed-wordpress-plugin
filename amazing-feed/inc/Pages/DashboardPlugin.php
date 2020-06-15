@@ -61,6 +61,14 @@ class DashboardPlugin extends BaseControllerPlugin
 				'capability' => 'manage_options',
 				'menu_slug' => 'amazing_feed_variables',
 				'callback' => array( $this, 'adminVariablesTemplate' ),
+			),
+			array(
+				'parent_slug' => 'amazing_feed',
+				'page_title' => 'Ход строительства',
+				'menu_title' => 'Ход строительства',
+				'capability' => 'manage_options',
+				'menu_slug' => 'amazing_feed_building',
+				'callback' => array( $this, 'adminBuildingTemplate' ),
 			)
 		);
 	}

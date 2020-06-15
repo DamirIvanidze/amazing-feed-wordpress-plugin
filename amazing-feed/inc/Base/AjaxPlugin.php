@@ -51,6 +51,10 @@ class AjaxPlugin {
 
 		add_action( 'wp_ajax_edit_settings', [ $this, 'editSettings' ] );
 
+		add_action( 'wp_ajax_edit_settings_variables', [ $this, 'editSettingsVariables' ] );
+
+		add_action( 'wp_ajax_edit_settings_building', [ $this, 'editSettingsBuilding' ] );
+
 		add_action( 'wp_ajax_generate_shortcode', [ $this, 'generateShortcodeTwbs' ] );
 	}
 
@@ -136,11 +140,33 @@ class AjaxPlugin {
 		$edit[ 'settings_for_import_array' ] = $result;
 
 
+		foreach ( $edit as $key => $val ) {
+			if( ! $edit[ $key ] ) {
+				unset( $edit[ $key ] );
+			}
+		}
+
+		foreach ( $edit as $key => $val ) {
+			$this->output[ $key ] = $val;
+		}
+
+		update_option( 'amazing_feed_settings', $this->output );
+
+
+		wp_send_json_success( array( 'message' => 'Saved.', 'redirect' => $redirect_to ) );
+	}
+
+
+	public function editSettingsVariables()
+	{
+		$this->checkNonce( 'edit_settings_variables_nonce' );
+
+		$redirect_to = isset( $_POST['redirect_to'] ) ? $_POST['redirect_to'] : '';
+
 		$edit[ 'variables' ][ 'phone' ] = esc_attr( sanitize_text_field( isset( $_POST['phone'] ) ? $_POST['phone'] : '' ) );
 		$edit[ 'variables' ][ 'main_price' ] = esc_attr( sanitize_text_field( isset( $_POST['main_price'] ) ? $_POST['main_price'] : '' ) );
 		$edit[ 'variables' ][ 'finish_price' ] = esc_attr( sanitize_text_field( isset( $_POST['finish_price'] ) ? $_POST['finish_price'] : '' ) );
 		$edit[ 'variables' ][ 'mortgage' ] = esc_attr( sanitize_text_field( isset( $_POST['mortgage'] ) ? $_POST['mortgage'] : '' ) );
-
 
 		foreach ( $edit as $key => $val ) {
 			if( ! $edit[ $key ] ) {
@@ -154,6 +180,36 @@ class AjaxPlugin {
 
 		update_option( 'amazing_feed_settings', $this->output );
 
+		wp_send_json_success( array( 'message' => 'Saved.', 'redirect' => $redirect_to ) );
+	}
+
+	public function editSettingsBuilding()
+	{
+		$this->checkNonce( 'edit_settings_building_nonce' );
+
+		$redirect_to = isset( $_POST['redirect_to'] ) ? $_POST['redirect_to'] : '';
+
+		$edit[ 'building' ][ 'site_parse_page' ] = esc_url_raw( isset( $_POST['site_parse_page'] ) ? $_POST['site_parse_page'] : '' );
+		if( substr( $edit[ 'building' ][ 'site_parse_page' ], -1 ) == '/' ) $edit[ 'building' ][ 'site_parse_page' ] = substr( $edit[ 'building' ][ 'site_parse_page' ], 0, -1 );
+		$edit[ 'building' ][ 'id_for_find' ] = esc_attr( sanitize_text_field( isset( $_POST['id_for_find'] ) ? $_POST['id_for_find'] : '' ) );
+		$edit[ 'building' ][ 'link_class_for_find' ] = esc_attr( sanitize_text_field( isset( $_POST['link_class_for_find'] ) ? $_POST['link_class_for_find'] : '' ) );
+		$edit[ 'building' ][ 'title_class_for_find' ] = esc_attr( sanitize_text_field( isset( $_POST['title_class_for_find'] ) ? $_POST['title_class_for_find'] : '' ) );
+		$edit[ 'building' ][ 'block_image_class' ] = esc_attr( sanitize_text_field( isset( $_POST['block_image_class'] ) ? $_POST['block_image_class'] : '' ) );
+		$edit[ 'building' ][ 'image_attr' ] = esc_attr( sanitize_text_field( isset( $_POST['image_attr'] ) ? $_POST['image_attr'] : '' ) );
+		$edit[ 'building' ][ 'utf8_decode' ] = isset( $_POST['utf8_decode'] ) ? $_POST['utf8_decode'] : '';
+		$edit[ 'building' ][ 'no_image' ] = isset( $_POST['no_image'] ) ? $_POST['no_image'] : '';
+
+		foreach ( $edit as $key => $val ) {
+			if( ! $edit[ $key ] ) {
+				unset( $edit[ $key ] );
+			}
+		}
+
+		foreach ( $edit as $key => $val ) {
+			$this->output[ $key ] = $val;
+		}
+
+		update_option( 'amazing_feed_settings', $this->output );
 
 		wp_send_json_success( array( 'message' => 'Saved.', 'redirect' => $redirect_to ) );
 	}

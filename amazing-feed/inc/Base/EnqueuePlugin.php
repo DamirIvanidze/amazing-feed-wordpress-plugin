@@ -19,6 +19,7 @@ class EnqueuePlugin extends BaseControllerPlugin {
 			'amazing-feed_page_amazing_feed_settings',
 			'amazing-feed_page_amazing_feed_shortcodes',
 			'amazing-feed_page_amazing_feed_variables',
+			'amazing-feed_page_amazing_feed_building',
 		);
 
 		if( in_array( $hook, $admin_pages_array ) ) {

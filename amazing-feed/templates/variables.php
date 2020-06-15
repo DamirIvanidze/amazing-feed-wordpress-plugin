@@ -103,8 +103,8 @@
 						<input type="submit" value="Сохранить" class="form__btn">
 
 						<input type="hidden" name="redirect_to" value="<?= $_SERVER['REQUEST_URI']; ?>">
-						<input type="hidden" name="action" value="edit_settings">
-						<input type="hidden" name="nonce" value="<?= wp_create_nonce('edit_settings_nonce'); ?>">
+						<input type="hidden" name="action" value="edit_settings_variables">
+						<input type="hidden" name="nonce" value="<?= wp_create_nonce('edit_settings_variables_nonce'); ?>">
 					</td>
 				</tr>
 			</tbody>

@@ -233,7 +233,6 @@ jQuery(document).ready(function($) {
 			'src': '',
 			'data-loaded': '',
 		}).removeClass('loaded');
-		console.log('test');
 	});
 	
 
@@ -273,6 +272,7 @@ jQuery(document).ready(function($) {
 	/**
 	 * If the transition from the genplan
 	 */
+
 	if(window.location.pathname === '/flats/' && window.location.hash !== '') {
 		var num = window.location.hash.substr(1);
 		jQuery('html, body').animate({scrollTop: jQuery('.mixer').offset().top}, 800);

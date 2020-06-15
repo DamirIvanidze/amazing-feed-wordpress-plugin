@@ -39,6 +39,10 @@ class BaseControllerPlugin {
 	{
 		return require_once( $this->plugin_path . 'templates/variables.php' );
 	}
+	public function adminBuildingTemplate()
+	{
+		return require_once( $this->plugin_path . 'templates/building.php' );
+	}
 
 
 	public function dco_remove_default_image_sizes( $sizes ) {

@@ -28,11 +28,13 @@
 	}
 
 	.mixer__filters button {
+		display: inline-block;
 		width: 38px;
 		height: 38px;
 		padding-left: 0;
 		padding-right: 0;
 		margin-bottom: 4px;
+		cursor: pointer;
 	}
 
 
