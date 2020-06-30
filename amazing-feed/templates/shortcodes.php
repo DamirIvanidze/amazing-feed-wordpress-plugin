@@ -120,7 +120,7 @@
 
 						<div class="row mb-2">
 							<div class="col-lg-6">
-								<p>Игнорировать изображение (URL)</p>
+								<p>Игнорировать изображение (Часть названия)</p>
 								<input type="text" name="ignore_url" value="<?= $ignore_url; ?>" class="regular-text" placeholder="">
 								<small></small>
 							</div>

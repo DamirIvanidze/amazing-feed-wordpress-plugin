@@ -173,7 +173,10 @@
 									global $post;
 
 									$image = get_the_post_thumbnail_url();
-									$image = ( $image !== $ignore_url ) ? $image : '';
+
+									$find_ignore = stripos( $image, $ignore_url );
+
+									$image = ( $find_ignore === false ) ? $image : '';
 
 									$flat_number = get_post_meta( $post->ID, 'flat_number', true );
 
@@ -207,7 +210,9 @@
 											if( $studio ) $value = 0;
 										}
 
-										$mix_class .= $key . '-' . ceil( $value ) .' ';
+										if( $key == 'area' ) $value = ceil( $value );
+
+										$mix_class .= $key . '-' . $value .' ';
 										$mix_data .= 'data-' . $key . '="' . $value . '"';
 									}
 						?>

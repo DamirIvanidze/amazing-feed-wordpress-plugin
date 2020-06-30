@@ -43,7 +43,7 @@ class ShortcodesPlugin extends BaseControllerPlugin {
 		$main_color_scss = sanitize_text_field( $attributes[ 'main_color_scss' ] );
 		$main_color_hex = sanitize_text_field( $attributes[ 'main_color_hex' ] );
 		$active_color_hex = sanitize_text_field( $attributes[ 'active_color_hex' ] );
-		$ignore_url = esc_url_raw( $attributes[ 'ignore_url' ] );
+		$ignore_url = $attributes[ 'ignore_url' ];
 		$cf7 = sanitize_text_field( $attributes[ 'cf7' ] );
 
 		wp_enqueue_style( 'ion-range-slider', $this->plugin_url . 'assets/css/modules/ion.rangeSlider.min.css', array(), null, 'all' );
