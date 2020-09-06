@@ -24,11 +24,11 @@
 
 	} } wp_reset_postdata();
 
-
 	foreach ( $filters_wp_query as $key => $value ) {
-		$filters_wp_query_unique[ $key ] = array_unique( $value );
+		$trim_value = array_diff( $value, array( '' ) );
+		$trim_value = array_unique( $trim_value );
+		if( !empty( $trim_value ) ) $filters_wp_query_unique[ $key ] = $trim_value;
 	}
-
 
 	if( $filters_wp_query_unique ) {
 ?>
