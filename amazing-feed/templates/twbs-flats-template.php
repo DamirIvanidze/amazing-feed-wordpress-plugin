@@ -3,7 +3,9 @@
 
 	$filters_result = array_combine( $filters, $filters_name );
 
-	// AF\Api\SettingsApiPlugin::vardump( $filters_name );
+	// AF\Api\SettingsApiPlugin::vardump( $filters_result );
+
+	if ( array_key_exists( 'url', $filters_result ) && $filters_result[ 'url' ] == 'Корпус') $url_as_section_flag = 'true';
 
 	$args = array( 'posts_per_page' => -1 );
 
@@ -19,7 +21,16 @@
 			global $post;
 
 			foreach ( $filters as $filter ) {
-				$filters_wp_query[ $filter ][] = get_post_meta( $post->ID, $filter, true );
+				if( $filter == 'url' && $url_as_section_flag == 'true' ) {
+					$url_as_section = get_post_meta( $post->ID, $filter, true );
+
+					$url_as_section_path = parse_url( $url_as_section )[ 'path' ];
+					$url_as_section_path_explode = explode( '/', $url_as_section_path );
+					$section = substr( $url_as_section_path_explode[2], -1 );
+
+					$filters_wp_query[ $filter ][] = $section;
+				}
+				else $filters_wp_query[ $filter ][] = get_post_meta( $post->ID, $filter, true );
 			}
 
 	} } wp_reset_postdata();
@@ -209,6 +220,11 @@
 											$studio = get_post_meta( $post->ID, 'studio', true );
 											if( $studio ) $value = 0;
 										}
+										else if( $key == 'url' && $url_as_section_flag == 'true' ) {
+											$value_path = parse_url( $value )[ 'path' ];
+											$value_path_explode = explode( '/', $value_path );
+											$value = substr( $value_path_explode[2], -1 );
+										}
 
 										if( $key == 'area' ) $value = ceil( $value );
 
@@ -235,6 +251,12 @@
 														if( $studio ) echo "Студия";
 														else echo '<span>Комнат: </span>' . $value;
 													}
+													else if( $key == 'url' && $url_as_section_flag == 'true' ) {
+														$value_path = parse_url( $value )[ 'path' ];
+														$value_path_explode = explode( '/', $value_path );
+														$value = substr( $value_path_explode[2], -1 );
+														echo $value;
+													}
 													else echo $value;
 												?>
 											</div>
@@ -252,7 +274,15 @@
 										<div class="row align-items-center">
 											<div class="col">
 												<?
-													$building_section = get_post_meta( $post->ID, 'building_section', true );
+													$url = get_post_meta( $post->ID, 'url', true );
+													if( $url && $url_as_section_flag == 'true' ) {
+														$url = get_post_meta( $post->ID, 'url', true );
+														$url_path = parse_url( $building_section )[ 'path' ];
+														$url_path_explode = explode( '/', $url_path );
+														$building_section = substr( $url_path_explode[2], -1 );
+													}
+													else $building_section = get_post_meta( $post->ID, 'building_section', true );
+
 													echo $building_section ? 'Корпус: ' . $building_section : '';
 												?>
 											</div>
