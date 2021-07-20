@@ -1,12 +1,47 @@
 jQuery(document).ready(function($) {
-	var containerEl = $('.mixer');
-	var mixer;
-
-	var minSizeRangeInput = document.querySelector('[name="minSize"]');
-	var maxSizeRangeInput = document.querySelector('[name="maxSize"]');
+	var containerEl = $('.mixer'),
+		mixer,
+		minSizeRangeInput = document.querySelector('[name="minSize"]'),
+		maxSizeRangeInput = document.querySelector('[name="maxSize"]'),
+		$range = $(".js-range-slider"),
+		$from = $('.js-from'),
+		$to = $('.js-to'),
+		min = 0,
+		max = $to.val(),
+		instance;
 
 	if (containerEl.length) {
 		containerEl.find('.mix:odd').addClass('js-stripped-color');
+
+		/**
+		 * RANGE
+		 */
+		$range.ionRangeSlider({
+			type: "double",
+			min: min,
+			max: max,
+			step: 5,
+			from: $from,
+			to: max,
+			onChange: handleRangeInputChange
+		});
+
+		instance = $range.data("ionRangeSlider");
+
+		$('button[type=reset]').on('click', function(){
+			minSizeRangeInput.value = 0;
+			maxSizeRangeInput.value = max;
+
+			instance.update({
+				from: 0,
+				to: max
+			});
+		});
+
+
+		/**
+		 * MIXER
+		 */
 
 		mixer = mixitup( containerEl, {
 			selectors: {
@@ -51,9 +86,13 @@ jQuery(document).ready(function($) {
 		});
 
 
+		/**
+		 * RANGE
+		 */
+		
 		function getRange() {
-			var min = Number(minSizeRangeInput.value);
-			var max = Number(maxSizeRangeInput.value);
+			var min = Number(instance.result.from);
+			var max = Number(instance.result.to);
 
 			return {
 				min: min,
@@ -61,17 +100,14 @@ jQuery(document).ready(function($) {
 			};
 		}
 
-
-		function handleRangeInputChange(){
+		function handleRangeInputChange() {
 			mixer.filter(mixer.getState().activeFilter);
 		}
 
-
-		function filterTestResult(testResult, target){
+		function filterTestResult(testResult, target) {
 			var size = Number(target.dom.el.getAttribute('data-area'));
 			var range = getRange();
-
-			if (size <= range.min || size >= range.max) {
+			if (size < range.min || size > range.max) {
 				testResult = false;
 			}
 
@@ -79,50 +115,7 @@ jQuery(document).ready(function($) {
 		}
 
 		mixitup.Mixer.registerFilter('testResultEvaluateHideShow', 'range', filterTestResult);
-
-		minSizeRangeInput.addEventListener('change', handleRangeInputChange);
-		maxSizeRangeInput.addEventListener('change', handleRangeInputChange);
 	}
-
-
-	/**
-	 * RANGE
-	 */
-	var $range = $('.js-range-slider');
-	var $from = $('.js-from');
-	var $to = $('.js-to');
-	var min = 0;
-	var max = $to.val();
-	var range;
-	var from;
-	var to;
-			
-	$range.ionRangeSlider({
-		type: "double",
-		min: min,
-		max: max,
-		step: 5,
-		prettify_enabled: false,
-		onChange: function (data) {
-			from = data.from;
-			to = data.to;
-			$from.prop("value", from);
-			$to.prop("value", to);
-			handleRangeInputChange(true, document.querySelector('.mixer'));
-		}
-	});
-
-	var slider = $(".js-range-slider").data("ionRangeSlider");
-
-	$('button[type=reset]').on('click', function(){
-		minSizeRangeInput.value = 0;
-		maxSizeRangeInput.value = max;
-
-		slider.update({
-			from: 0,
-			to: max
-		});
-	});
 	
 
 
