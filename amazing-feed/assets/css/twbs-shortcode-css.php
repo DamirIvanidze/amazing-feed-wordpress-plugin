@@ -277,14 +277,11 @@
 		padding: 0;
 	}
 
-	.modal-shortcode-twbs .modal-body .close {
+	.modal-shortcode-twbs .modal-body .btn-close {
 		position: absolute;
 		top: 10px;
 		right: 20px;
-		font-size: 60px;
-		color: <?= $main_color_hex; ?>;
-		text-shadow: none;
-		z-index: 9999;
+		font-size: 30px;
 	}
 
 	.modal-shortcode-twbs .modal-body .close:hover,

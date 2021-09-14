@@ -48,9 +48,7 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-body">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
 
 					<div class="row">
 						<div class="col-lg-6 d-flex justify-content-center">
@@ -65,10 +63,12 @@
 								<div class="modal-shortcode-twbs__descr"></div>
 
 								<? if( $cf7 ) { ?>
-									<div class="modal-shortcode-twbs__form">
-										<p>Остались вопросы?</p>
-										<p>Оставьте ваши данные, мы перезвоним через 30 секунд и бесплатно проконсультируем.</p>
-										<?= do_shortcode( '[contact-form-7 id="' . $cf7 . '" title="Feedback"]' ); ?>
+									<div class="form">
+										<div class="modal-shortcode-twbs__form">
+											<p>Остались вопросы?</p>
+											<p>Оставьте ваши данные, мы перезвоним через 30 секунд и бесплатно проконсультируем.</p>
+											<?= do_shortcode( '[contact-form-7 id="' . $cf7 . '" title="Feedback"]' ); ?>
+										</div>
 									</div>
 								<?}?>
 							</div>
@@ -140,12 +140,12 @@
 										echo '</div>';
 									}
 									else {
-										if( $key == 'rooms' && in_array( 'studio', $output['settings_for_import_array'] ) ) {
-											echo '<button type="button" class="btn btn-' . $main_color_scss . '" data-mixitup-control="" data-filter=".rooms-0">С</button> ';
+										if( $key == 'rooms') {
+											echo '<button type="button" class="btn btn-' . $main_color_scss . '" data-mixitup-control="" data-filter=".rooms-0">С</button>';
 										}
 
 										foreach ($value as $k => $v) {
-											echo '<button type="button" class="btn btn-' . $main_color_scss . '" data-mixitup-control="" data-filter=".' . $key . '-' . $v . '">' . $v . '</button> ';
+											echo '<button type="button" class="btn btn-' . $main_color_scss . '" data-mixitup-control="" data-filter=".' . $key . '-' . str_replace('корпус ', '', $v) . '">' . str_replace('корпус ', '', $v) . '</button>';
 										}
 									}
 								?>
@@ -176,7 +176,7 @@
 
 			<div class="row">
 				<div class="col-lg-12">
-					<div class="accordion" id="mixer_accordion">
+					<div class="accordion accordion-flush position-relative" id="mixer_accordion">
 						<?
 							if( $q->have_posts() ) {
 								while( $q->have_posts() ) {
@@ -219,12 +219,15 @@
 										else if( $key == 'rooms' ) {
 											$studio = get_post_meta( $post->ID, 'studio', true );
 											if( $studio ) $value = 0;
+
+											if( $value == '' ) $value = 0;
 										}
 										else if( $key == 'url' && $url_as_section_flag == 'true' ) {
 											$value_path = parse_url( $value )[ 'path' ];
 											$value_path_explode = explode( '/', $value_path );
 											$value = substr( $value_path_explode[2], -1 );
 										}
+										else if( $key == 'building_section' ) $value = str_replace('корпус ', '', $value);
 
 										if( $key == 'area' ) $value = ceil( $value );
 
@@ -234,7 +237,7 @@
 						?>
 							<div class="mix <?= $mix_class; ?>" <?= $mix_data;?>>
 								<div class="mix__header">
-									<a href="#" class="stretched-link collapse_link" data-toggle="collapse" data-target="#collapse_<?= $post->ID; ?>"></a>
+									<a href="#" class="stretched-link collapse_link" data-bs-toggle="collapse" data-bs-target="#collapse_<?= $post->ID; ?>"></a>
 									<a href="#" class="stretched-link js-modal-link" <?= $mix_data; ?> data-image="<?= $image; ?>" data-flat_number="<?= $flat_number ? $flat_number : ''; ?>" data-filters_name="<?= implode( ';', $filters_name )?>"></a>
 
 									<div class="row align-items-center">
@@ -249,6 +252,7 @@
 													else if( $key == 'rooms') {
 														$studio = get_post_meta( $post->ID, 'studio', true );
 														if( $studio ) echo "Студия";
+														else if( $value == '' ) echo "Студия";
 														else echo '<span>Комнат: </span>' . $value;
 													}
 													else if( $key == 'url' && $url_as_section_flag == 'true' ) {
@@ -269,56 +273,58 @@
 									</div>
 								</div>
 
-								<div id="collapse_<?= $post->ID; ?>" class="collapse" data-parent="#mixer_accordion">
-									<div class="mix__body">
-										<div class="row align-items-center">
-											<div class="col">
-												<?
-													$url = get_post_meta( $post->ID, 'url', true );
-													if( $url && $url_as_section_flag == 'true' ) {
+								<div class="accordion-item bg-transparent">
+									<div id="collapse_<?= $post->ID; ?>" class="accordion-collapse collapse" data-bs-parent="#mixer_accordion">
+										<div class="mix__body">
+											<div class="row align-items-center">
+												<div class="col">
+													<?
 														$url = get_post_meta( $post->ID, 'url', true );
-														$url_path = parse_url( $building_section )[ 'path' ];
-														$url_path_explode = explode( '/', $url_path );
-														$building_section = substr( $url_path_explode[2], -1 );
-													}
-													else $building_section = get_post_meta( $post->ID, 'building_section', true );
+														if( $url && $url_as_section_flag == 'true' ) {
+															$url = get_post_meta( $post->ID, 'url', true );
+															$url_path = parse_url( $building_section )[ 'path' ];
+															$url_path_explode = explode( '/', $url_path );
+															$building_section = substr( $url_path_explode[2], -1 );
+														}
+														else $building_section = get_post_meta( $post->ID, 'building_section', true );
 
-													echo $building_section ? 'Корпус: ' . $building_section : '';
-												?>
-											</div>
-
-											<div class="col">
-												<?
-													$mortgage = do_shortcode( '[amazing-feed-variable variable="mortgage"]' );
-													echo $mortgage ? '<div class="btn btn-' . $main_color_scss . '">Ипотека от ' . $mortgage . '&nbsp;%</div>' : '';
-												?>
-											</div>
-
-											<div class="w-100 mb-3"></div>
-
-											<div class="col">
-												<?
-													$floor = get_post_meta( $post->ID, 'floor', true );
-													echo $floor ? 'Этаж: ' . $floor : '';
-												?>
-											</div>
-
-											<div class="col">
-												<?
-													$renovation = get_post_meta( $post->ID, 'renovation', true );
-													echo $renovation ? $renovation : '';
-												?>
-											</div>
-
-											<div class="w-100 mb-3"></div>
-
-											<div class="col">
-												<?= $image ? '<img data-src="' . $image . '" alt="" class="img-fluid lozad">' : $no_pic; ?>
-												<div class="position-relative">
-													<a href="#callbackwidget" class="stretched-link btn btn-<?= $main_color_scss; ?>">Узнать цену</a>
+														echo $building_section ? 'Корпус: ' . $building_section : '';
+													?>
 												</div>
-											</div>
 
+												<div class="col">
+													<?
+														$mortgage = do_shortcode( '[amazing-feed-variable variable="mortgage"]' );
+														echo $mortgage ? '<div class="btn btn-' . $main_color_scss . '">Ипотека от ' . $mortgage . '&nbsp;%</div>' : '';
+													?>
+												</div>
+
+												<div class="w-100 mb-3"></div>
+
+												<div class="col">
+													<?
+														$floor = get_post_meta( $post->ID, 'floor', true );
+														echo $floor ? 'Этаж: ' . $floor : '';
+													?>
+												</div>
+
+												<div class="col">
+													<?
+														$renovation = get_post_meta( $post->ID, 'renovation', true );
+														echo $renovation ? $renovation : '';
+													?>
+												</div>
+
+												<div class="w-100 mb-3"></div>
+
+												<div class="col">
+													<?= $image ? '<img data-src="' . $image . '" alt="" class="img-fluid lozad">' : $no_pic; ?>
+													<div class="position-relative">
+														<a href="#callbackwidget" class="stretched-link btn btn-<?= $main_color_scss; ?>">Узнать цену</a>
+													</div>
+												</div>
+
+											</div>
 										</div>
 									</div>
 								</div>
